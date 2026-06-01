@@ -1,0 +1,18 @@
+# Use postgres/example user/password credentials
+services:
+  db:
+    container_name: dbspring
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: ejemplo
+      POSTGRES_PASSWORD: example
+    ports:
+      - 5432:5432
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8081
