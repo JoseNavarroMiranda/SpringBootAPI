@@ -17,6 +17,14 @@ public class Archivo {
     @Column(nullable = true)
     private String url;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "tarea_id",
+            referencedColumnName = "id",
+            nullable = true
+    )
+    private Tarea tarea;
+
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -27,8 +35,9 @@ public class Archivo {
 
     public Archivo() {}
 
-    public Archivo(String url) {
+    public Archivo(String url, Tarea tarea) {
         this.url = url;
+        this.tarea = tarea;
     }
 
     public Long getId() {
@@ -45,5 +54,13 @@ public class Archivo {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Tarea getTarea() {
+        return tarea;
+    }
+
+    public void setTarea(Tarea tarea) {
+        this.tarea = tarea;
     }
 }
