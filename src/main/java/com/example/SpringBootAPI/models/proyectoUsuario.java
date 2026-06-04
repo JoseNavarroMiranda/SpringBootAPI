@@ -1,5 +1,8 @@
 package com.example.SpringBootAPI.models;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -7,6 +10,9 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "proyectoUsuario")
+@Getter
+@Setter
+@NoArgsConstructor
 public class proyectoUsuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,43 +45,10 @@ public class proyectoUsuario {
     @Column(name = "update_at")
     private LocalDateTime updatedAt;
 
-    public proyectoUsuario() {}
-
     public proyectoUsuario(Proyecto proyecto, String rolProyecto, Usuario usuario) {
         this.proyecto = proyecto;
         this.rolProyecto = rolProyecto;
         this.usuario = usuario;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Proyecto getProyecto() {
-        return proyecto;
-    }
-
-    public void setProyecto(Proyecto proyecto) {
-        this.proyecto = proyecto;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getRolProyecto() {
-        return rolProyecto;
-    }
-
-    public void setRolProyecto(String rolProyecto) {
-        this.rolProyecto = rolProyecto;
-    }
 }

@@ -1,6 +1,9 @@
 package com.example.SpringBootAPI.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -8,6 +11,9 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "archivo")
+@Getter
+@Setter //Se agregan decoradore de loombok que remplazan el codigo extenso de setter y getter
+@NoArgsConstructor
 public class Archivo {
 
     @Id
@@ -33,34 +39,8 @@ public class Archivo {
     @Column(name = "update_at")
     private LocalDateTime updatedAt;
 
-    public Archivo() {}
-
     public Archivo(String url, Tarea tarea) {
         this.url = url;
-        this.tarea = tarea;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public Tarea getTarea() {
-        return tarea;
-    }
-
-    public void setTarea(Tarea tarea) {
         this.tarea = tarea;
     }
 }

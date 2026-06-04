@@ -1,5 +1,8 @@
 package com.example.SpringBootAPI.models;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -7,6 +10,9 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "categoria")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Categoria {
 
     @Id
@@ -24,25 +30,8 @@ public class Categoria {
     @Column(name = "update_at")
     private LocalDateTime updatedAt;
 
-    public Categoria(){}
-
     public Categoria(String nombre) {
         this.nombre = nombre;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 }
