@@ -1,41 +1,40 @@
 package com.example.SpringBootAPI.models;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "rolUsuario")
-@Getter
+@Table(name = "tipoUsuario")
 @Setter
+@Getter
 @NoArgsConstructor
-public class rolUsuario {
+
+public class TipoUsuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String rol;
+    private String tipoUser;
 
     @Column(nullable = true, length = 250)
     private String caracteristicas;
 
-    @CreatedDate
-    @Column(name = "created_at")
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    public rolUsuario(String rol, String caracteristicas) {
-        this.rol = rol;
+    public TipoUsuario(String tipoUser, String caracteristicas) {
+        this.tipoUser = tipoUser;
         this.caracteristicas = caracteristicas;
     }
-
 }

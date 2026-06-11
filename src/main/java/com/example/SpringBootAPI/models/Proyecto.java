@@ -1,9 +1,8 @@
 package com.example.SpringBootAPI.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -14,6 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class Proyecto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class Proyecto {
     @Column(nullable = true)
     private String descripcion;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(
             name = "categoria_id",
             referencedColumnName = "id",
@@ -33,7 +33,7 @@ public class Proyecto {
     )
     private Categoria categoria;
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -41,10 +41,9 @@ public class Proyecto {
     @Column(name = "update_at")
     private LocalDateTime updatedAt;
 
-    public Proyecto(String name, String descripcion, Categoria categoria) {
-        this.name = name;
+    public Proyecto(String descripcion, String name, Categoria categoria) {
         this.descripcion = descripcion;
+        this.name = name;
         this.categoria = categoria;
     }
-
 }

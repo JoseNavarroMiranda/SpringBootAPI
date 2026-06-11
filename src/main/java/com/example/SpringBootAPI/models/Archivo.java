@@ -1,9 +1,8 @@
 package com.example.SpringBootAPI.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -14,6 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter //Se agregan decoradore de loombok que remplazan el codigo extenso de setter y getter
 @NoArgsConstructor
+
 public class Archivo {
 
     @Id
@@ -31,7 +31,7 @@ public class Archivo {
     )
     private Tarea tarea;
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 

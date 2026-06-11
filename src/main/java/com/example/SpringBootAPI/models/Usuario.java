@@ -1,8 +1,7 @@
 package com.example.SpringBootAPI.models;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -14,6 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class Usuario {
 
     @Id //se define el campo que sera ID
@@ -23,6 +23,9 @@ public class Usuario {
 
     @Column(nullable = false, length = 60)
     private String nombre;
+
+    @Column(nullable = false, length = 60)
+    private String username;
 
     @Column(nullable = false, length = 30)
     private String apellidoPat;
@@ -37,25 +40,25 @@ public class Usuario {
     private String fotoPerfil;
 
     //Creacion de una campo con llave foranea a otra tabla/clase de springboot
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
             name = "rolUsuario_id",
             referencedColumnName = "id",
             nullable = false
     )
-    private rolUsuario rol;
+    private RolUsuario rol;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
             name = "tipo_id",
             referencedColumnName = "id",
             nullable = false
     )
-    private tipoUsuario tipo;
+    private TipoUsuario tipo;
 
     private boolean estatusUsuario;
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -63,17 +66,16 @@ public class Usuario {
     @Column(name = "update_at")
     private LocalDateTime updatedAt;
 
-    // Constructor con datos campos llenos de todo el modelo
-    public Usuario(String nombre, String apellidoPat, String apellidoMat, String password,
-                   String fotoPerfil, rolUsuario rol, tipoUsuario tipo, boolean estatusUsuario) {
+    public Usuario(String nombre, String username, String apellidoPat, String apellidoMat, String fotoPerfil, String password,
+                   RolUsuario rol, TipoUsuario tipo, boolean estatusUsuario) {
         this.nombre = nombre;
+        this.username = username;
         this.apellidoPat = apellidoPat;
         this.apellidoMat = apellidoMat;
-        this.password = password;
         this.fotoPerfil = fotoPerfil;
+        this.password = password;
         this.rol = rol;
         this.tipo = tipo;
         this.estatusUsuario = estatusUsuario;
     }
-
 }

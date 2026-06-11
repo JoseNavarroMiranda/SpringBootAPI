@@ -1,8 +1,7 @@
 package com.example.SpringBootAPI.models;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -13,7 +12,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class proyectoUsuario {
+
+public class ProyectoUsuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,7 +37,7 @@ public class proyectoUsuario {
     @Column(nullable = false)
     private String rolProyecto;
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -45,10 +45,9 @@ public class proyectoUsuario {
     @Column(name = "update_at")
     private LocalDateTime updatedAt;
 
-    public proyectoUsuario(Proyecto proyecto, String rolProyecto, Usuario usuario) {
+    public ProyectoUsuario(Proyecto proyecto, Usuario usuario, String rolProyecto) {
         this.proyecto = proyecto;
-        this.rolProyecto = rolProyecto;
         this.usuario = usuario;
+        this.rolProyecto = rolProyecto;
     }
-
 }

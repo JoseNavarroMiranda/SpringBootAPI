@@ -1,9 +1,8 @@
 package com.example.SpringBootAPI.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -37,7 +36,7 @@ public class Tarea {
     )
     private Proyecto proyecto;
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -50,5 +49,4 @@ public class Tarea {
         this.usuario = usuario;
         this.proyecto = proyecto;
     }
-
 }
