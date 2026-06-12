@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class UsuarioService {
@@ -22,7 +24,6 @@ public class UsuarioService {
 
     //Funciones de modelo de ususario (CRUD)
     public Usuario CreateUser(UsuarioRequest usuarioRequest) {
-
         RolUsuario rol = rolRepo.findById(usuarioRequest.getRolid())
                 .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
         TipoUsuario tipo = tipoRepo.findById(usuarioRequest.getTipoid())
@@ -44,4 +45,14 @@ public class UsuarioService {
         );
         return usuarioRepository.save(usuario);
     }
+
+    public List<Usuario> ObtenerTodos(){
+        return usuarioRepository.findAll();
+    }
+
+    public Usuario ObtenerUsuario(Long id){
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No se encontraron resultados en la busqueda"));
+    }
+
 }
