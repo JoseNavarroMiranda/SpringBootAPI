@@ -1,6 +1,7 @@
 package com.example.SpringBootAPI.controllers;
 
 import com.example.SpringBootAPI.dto.UsuarioRequest;
+import com.example.SpringBootAPI.dto.UsuarioResponse;
 import com.example.SpringBootAPI.models.Usuario;
 import com.example.SpringBootAPI.services.UsuarioService;
 import jakarta.validation.Valid;
@@ -9,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -22,7 +25,8 @@ public class UsuarioController {
     public ResponseEntity<?> crearUsuario(@Valid @RequestBody UsuarioRequest usuarioRequest) {
         try {
             Usuario usuario = usuarioService.CreateUser(usuarioRequest);
-            return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
+            UsuarioResponse response = new UsuarioResponse(usuario);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }catch (RuntimeException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
@@ -32,7 +36,10 @@ public class UsuarioController {
     public ResponseEntity<?> ListarUsuario(){
         try {
             List<Usuario> usuario = usuarioService.ObtenerTodos();
-            return ResponseEntity.status(HttpStatus.OK).body(usuario);
+            List<UsuarioResponse> response = usuario.stream()
+                    .map(Usuario -> new UsuarioResponse(Usuario))
+                    .collect(Collectors.toList());
+            return ResponseEntity.status(HttpStatus.OK).body(response);
         }catch (RuntimeException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
@@ -42,10 +49,13 @@ public class UsuarioController {
     public ResponseEntity <?> ListarSoloUsuario(@PathVariable Long id){
         try{
             Usuario usuario = usuarioService.ObtenerUsuario(id);
-            return ResponseEntity.status(HttpStatus.OK).body(usuario);
+            UsuarioResponse response = new UsuarioResponse(usuario);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
         }catch (RuntimeException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+
 
 }
