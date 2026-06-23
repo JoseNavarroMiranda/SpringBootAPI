@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/usuarios").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/usuarios/{id}").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/usuarios/passwordupdate/{id}").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/api/usuarios/updatepass/{id}").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf.disable());

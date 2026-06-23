@@ -1,14 +1,18 @@
 package com.example.SpringBootAPI.dto;
 
-import jakarta.validation.constraints.NotNull;
+import com.example.SpringBootAPI.validations.ValidPassword;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
 public class PasswordUpdateRequest {
-    @NotNull
-    private String Password;
-    @NotNull
-    private String NewPassword;
+
+    @NotBlank
+    private String password;
+
+    @NotBlank
+    @ValidPassword
+    private String newPassword;
 }

@@ -1,5 +1,6 @@
 package com.example.SpringBootAPI.controllers;
 
+import com.example.SpringBootAPI.dto.PasswordUpdateRequest;
 import com.example.SpringBootAPI.dto.UsuarioRequest;
 import com.example.SpringBootAPI.dto.UsuarioResponse;
 import com.example.SpringBootAPI.models.Usuario;
@@ -26,7 +27,7 @@ public class UsuarioController {
         try {
             Usuario usuario = usuarioService.CreateUser(usuarioRequest);
             UsuarioResponse response = new UsuarioResponse(usuario);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+            return ResponseEntity.status(HttpStatus.OK).body("Constraseña actualizada, correctamente");
         }catch (RuntimeException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
@@ -57,5 +58,15 @@ public class UsuarioController {
     }
 
 
+    @PutMapping("/updatepass/{id}")
+    public ResponseEntity <?> actualizarPassword(@PathVariable Long id, @Valid @RequestBody PasswordUpdateRequest passwordUpdateRequest){
+        try{
+            Usuario usuarioActualizado = usuarioService.UpdatePsswordUsuario(id, passwordUpdateRequest);
+            UsuarioResponse response = new UsuarioResponse(usuarioActualizado);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 
 }
